@@ -9,8 +9,6 @@ class Soap extends \SoapClient
 {
     private $request;
     private $response;
-    private $function;
-    private $arguments;
     private $endpoint;
     private $soapAction;
     private $version;
@@ -45,23 +43,16 @@ class Soap extends \SoapClient
         return $this->version;
     }
 
-    public function __soapCall($function_name, $arguments, $options = null, $input_headers = null, &$output_headers = null)
-    {
-        parent::__soapCall($function_name, $arguments, $options, $input_headers, $output_headers);
-        $this->function = $function_name;
-        $this->arguments = $arguments;
-    }
-
     public function __doRequest($request, $location, $action, $version, $one_way = 0)
     {
         if (null !== $this->response) {
             return $this->response;
         }
 
-        $this->request = $request;
-        $this->endpoint = $location;
-        $this->soapAction = $action;
-        $this->version = $version;
+        $this->request = (string)$request;
+        $this->endpoint = (string)$location;
+        $this->soapAction = (string)$action;
+        $this->version = (string)$version;
         return '';
     }
 }
