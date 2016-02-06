@@ -1,0 +1,13 @@
+{
+    "name": "meng-tian/php-soap-interpreter",
+    "description": "A PHP library for interpreting SOAP envelopes.",
+    "authors": [
+        {
+            "name": "Meng Tian",
+            "email": "tianmeng94@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
