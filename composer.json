@@ -1,6 +1,7 @@
 {
     "name": "meng-tian/php-soap-interpreter",
     "description": "A PHP library for interpreting SOAP envelopes.",
+    "license": "MIT"
     "authors": [
         {
             "name": "Meng Tian",
