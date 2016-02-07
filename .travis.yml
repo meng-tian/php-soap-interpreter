@@ -14,3 +14,4 @@ install:
 
 script:
   - php vendor/bin/phpunit
+  - bin/atoum --test-all
