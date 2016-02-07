@@ -8,9 +8,13 @@ php:
 
 before_install:
   - composer self-update
+  - pip install --user codecov
 
 install:
   - composer install
 
 script:
   - php vendor/bin/phpunit
+  
+after_success:
+  - codecov
