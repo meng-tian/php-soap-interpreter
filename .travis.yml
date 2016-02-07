@@ -8,7 +8,7 @@ php:
 
 before_install:
   - composer self-update
-  - pip install codecov
+  - pip install --user codecov
 
 install:
   - composer install
