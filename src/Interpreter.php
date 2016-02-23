@@ -22,7 +22,7 @@ class Interpreter
      * @param array $input_headers
      * @return array
      */
-    public function request($function_name, $arguments, $options = null, $input_headers = null)
+    public function request($function_name, array $arguments, array $options = null, $input_headers = null)
     {
         $this->soap->feedRequest($function_name, $arguments, $options, $input_headers);
         $this->lastFunction = $function_name;
