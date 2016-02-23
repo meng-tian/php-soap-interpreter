@@ -14,7 +14,7 @@ class Interpreter
     }
 
     /**
-     * Interpret SOAP method and arguments to an request envelope.
+     * Interpret SOAP method and arguments to a request envelope.
      *
      * @param string $function_name
      * @param array $arguments
@@ -39,12 +39,13 @@ class Interpreter
      * Interpret a response envelope to PHP objects.
      *
      * @param string $response
+     * @param array $output_headers
      * @return mixed
      */
-    public function response($response)
+    public function response($response, array &$output_headers = null)
     {
         $this->soap->feedResponse($response);
-        $response = $this->soap->__call($this->lastFunction, $this->lastArguments);
+        $response = $this->soap->__soapCall($this->lastFunction, $this->lastArguments, null, null, $output_headers);
         $this->soap->feedResponse(null);
         return $response;
     }

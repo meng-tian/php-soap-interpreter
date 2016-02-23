@@ -17,8 +17,10 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('Version', $request);
         $this->assertArrayHasKey('Envelope', $request);
 
-        $response = $interpreter->response($response);
+        $outputHeaders = [];
+        $response = $interpreter->response($response, $outputHeaders);
         $this->assertEquals(['ConversionRateResult' => '-1'], (array)$response);
+        $this->assertNotEmpty($outputHeaders);
     }
 
     /**
@@ -34,8 +36,10 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('Version', $request);
         $this->assertArrayHasKey('Envelope', $request);
 
-        $response = $interpreter->response($response);
+        $outputHeaders = [];
+        $response = $interpreter->response($response, $outputHeaders);
         $this->assertEquals(-1, $response);
+        $this->assertNotEmpty($outputHeaders);
     }
 
     public function responseEnvelope()
@@ -43,6 +47,11 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
         $responseEnvelope = <<<EOD
 <?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header>
+    <m:Trans xmlns:m="http://www.w3schools.com/transaction/" soap:mustUnderstand="1">
+      234
+    </m:Trans>
+  </soap:Header>
   <soap:Body>
     <ConversionRateResponse xmlns="http://www.webserviceX.NET/">
       <ConversionRateResult>-1</ConversionRateResult>
