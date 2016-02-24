@@ -19,7 +19,7 @@ class Interpreter
      * @param string $function_name
      * @param array $arguments
      * @param array $options
-     * @param array $input_headers
+     * @param mixed $input_headers
      * @return array
      */
     public function request($function_name, array $arguments, array $options = null, $input_headers = null)
