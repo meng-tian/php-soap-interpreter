@@ -5,8 +5,6 @@ namespace Meng\Soap;
 class Interpreter
 {
     private $soap;
-    private $lastFunction;
-    private $lastArguments;
 
     public function __construct($wsdl, array $options = [])
     {
@@ -14,39 +12,29 @@ class Interpreter
     }
 
     /**
-     * Interpret SOAP method and arguments to a request envelope.
+     * Interpret the given method and arguments to a SOAP request message.
      *
      * @param string $function_name
      * @param array $arguments
      * @param array $options
      * @param mixed $input_headers
-     * @return array
+     * @return SoapRequest
      */
-    public function request($function_name, array $arguments, array $options = null, $input_headers = null)
+    public function request($function_name, array $arguments = [], array $options = null, $input_headers = null)
     {
-        $this->soap->feedRequest($function_name, $arguments, $options, $input_headers);
-        $this->lastFunction = $function_name;
-        $this->lastArguments = $arguments;
-        return [
-            'Endpoint' => $this->soap->getEndpoint(),
-            'SoapAction' => $this->soap->getSoapAction(),
-            'Version' => $this->soap->getVersion(),
-            'Envelope' => $this->soap->getRequest()
-        ];
+        return $this->soap->request($function_name, $arguments, $options, $input_headers);
     }
 
     /**
-     * Interpret a response envelope to PHP objects.
+     * Interpret a SOAP response message to PHP objects.
      *
      * @param string $response
+     * @param string $function_name
      * @param array $output_headers
      * @return mixed
      */
-    public function response($response, array &$output_headers = null)
+    public function response($response, $function_name, array &$output_headers = null)
     {
-        $this->soap->feedResponse($response);
-        $response = $this->soap->__soapCall($this->lastFunction, $this->lastArguments, null, null, $output_headers);
-        $this->soap->feedResponse(null);
-        return $response;
+        return $this->soap->response($response, $function_name, $output_headers);
     }
 }

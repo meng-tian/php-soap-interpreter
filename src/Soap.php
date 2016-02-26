@@ -7,52 +7,36 @@ namespace Meng\Soap;
  */
 class Soap extends \SoapClient
 {
-    private $request;
-    private $response;
     private $endpoint;
+    private $soapRequest;
+    private $soapResponse;
     private $soapAction;
-    private $version;
-
-    public function feedRequest($function_name, $arguments, $options = null, $input_headers = null)
-    {
-        $this->__soapCall($function_name, $arguments, $options, $input_headers);
-    }
-
-    public function feedResponse($response)
-    {
-        $this->response = $response;
-    }
-
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    public function getEndpoint()
-    {
-        return $this->endpoint;
-    }
-
-    public function getSoapAction()
-    {
-        return $this->soapAction;
-    }
-
-    public function getVersion()
-    {
-        return $this->version;
-    }
+    private $soapVersion;
 
     public function __doRequest($request, $location, $action, $version, $one_way = 0)
     {
-        if (null !== $this->response) {
-            return $this->response;
+        if (null !== $this->soapResponse) {
+            return $this->soapResponse;
         }
 
-        $this->request = (string)$request;
         $this->endpoint = (string)$location;
         $this->soapAction = (string)$action;
-        $this->version = (string)$version;
+        $this->soapVersion = (string)$version;
+        $this->soapRequest = (string)$request;
         return '';
+    }
+
+    public function request($function_name, $arguments, $options, $input_headers)
+    {
+        $this->__soapCall($function_name, $arguments, $options, $input_headers);
+        return new SoapRequest($this->endpoint, $this->soapAction, $this->soapVersion, $this->soapRequest);
+    }
+
+    public function response($response, $function_name, &$output_headers)
+    {
+        $this->soapResponse = $response;
+        $response = $this->__soapCall($function_name, [], null, null, $output_headers);
+        $this->soapResponse = null;
+        return $response;
     }
 }
