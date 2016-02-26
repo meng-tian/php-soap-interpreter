@@ -1,6 +1,7 @@
 {
     "name": "meng-tian/php-soap-interpreter",
-    "description": "A PHP library for interpreting SOAP envelopes.",
+    "description": "A PHP library for interpreting SOAP messages.",
+    "keywords": ["SOAP"],
     "license": "MIT",
     "authors": [
         {
