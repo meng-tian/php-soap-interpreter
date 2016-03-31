@@ -35,7 +35,12 @@ class Soap extends \SoapClient
     public function response($response, $function_name, &$output_headers)
     {
         $this->soapResponse = $response;
-        $response = $this->__soapCall($function_name, [], null, null, $output_headers);
+        try {
+            $response = $this->__soapCall($function_name, [], null, null, $output_headers);
+        } catch (\SoapFault $fault) {
+            $this->soapResponse = null;
+            throw $fault;
+        }
         $this->soapResponse = null;
         return $response;
     }
