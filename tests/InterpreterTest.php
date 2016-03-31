@@ -1,6 +1,7 @@
 <?php
 
 use Meng\Soap\Interpreter;
+use Meng\Soap\SoapRequest;
 
 class InterpreterTest extends PHPUnit_Framework_TestCase
 {
@@ -139,5 +140,40 @@ EOD;
         $responseMessage = $interpreter->response($responseMessage, 'ConversionRate', $outputHeaders);
         $this->assertEquals('-1', $responseMessage);
         $this->assertNotEmpty($outputHeaders);
+    }
+
+    /**
+     * @test
+     */
+    public function faultResponseNotAffectSubsequentRequests()
+    {
+        $interpreter = new Interpreter(null, ['uri'=>'www.uri.com', 'location'=>'www.location.com']);
+        $responseMessage = <<<EOD
+<SOAP-ENV:Envelope
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Body>
+       <SOAP-ENV:Fault>
+           <faultcode>SOAP-ENV:Server</faultcode>
+           <faultstring>Server Error</faultstring>
+           <detail>
+               <e:myfaultdetails xmlns:e="Some-URI">
+                 <message>
+                   My application didn't work
+                 </message>
+                 <errorcode>
+                   1001
+                 </errorcode>
+               </e:myfaultdetails>
+           </detail>
+       </SOAP-ENV:Fault>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+EOD;
+        try {
+            $interpreter->response($responseMessage, 'AnyMethod');
+        } catch (Exception $e) {
+        }
+        $request = $interpreter->request('AnyMethod');
+        $this->assertTrue($request instanceof SoapRequest);
     }
 }
