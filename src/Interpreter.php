@@ -4,8 +4,14 @@ namespace Meng\Soap;
 
 class Interpreter
 {
+    /** @var Soap */
     private $soap;
 
+    /**
+     * @param mixed  $wsdl              URI of the WSDL file or NULL if working in non-WSDL mode.
+     * @param array  $options           Supported options: location, uri, style, soap_version, encoding, exceptions,
+     *                                  classmap, typemap, cache_wsdl and feature.
+     */
     public function __construct($wsdl, array $options = [])
     {
         $this->soap = new Soap($wsdl, $options);
@@ -14,10 +20,13 @@ class Interpreter
     /**
      * Interpret the given method and arguments to a SOAP request message.
      *
-     * @param string $function_name
-     * @param array $arguments
-     * @param array $options
-     * @param mixed $input_headers
+     * @param string $function_name     The name of the SOAP function to interpret.
+     * @param array  $arguments         An array of the arguments to $function_name.
+     * @param array  $options           An associative array of options.
+     *                                  The location option is the URL of the remote Web service.
+     *                                  The uri option is the target namespace of the SOAP service.
+     *                                  The soapaction option is the action to call.
+     * @param mixed  $input_headers     An array of headers to be interpreted along with the SOAP request.
      * @return SoapRequest
      */
     public function request($function_name, array $arguments = [], array $options = null, $input_headers = null)
@@ -26,12 +35,13 @@ class Interpreter
     }
 
     /**
-     * Interpret a SOAP response message to PHP objects.
+     * Interpret a SOAP response message to PHP values.
      *
-     * @param string $response
-     * @param string $function_name
-     * @param array $output_headers
+     * @param string $response          The SOAP response message.
+     * @param string $function_name     The name of the SOAP function to interpret.
+     * @param array  $output_headers    If supplied, this array will be filled with the headers from the SOAP response.
      * @return mixed
+     * @throws \SoapFault
      */
     public function response($response, $function_name, array &$output_headers = null)
     {
