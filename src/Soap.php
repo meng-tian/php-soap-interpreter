@@ -13,6 +13,27 @@ class Soap extends \SoapClient
     private $soapAction;
     private $soapVersion;
 
+    public function __construct($wsdl, array $options)
+    {
+        unset($options['login']);
+        unset($options['password']);
+        unset($options['proxy_host']);
+        unset($options['proxy_port']);
+        unset($options['proxy_login']);
+        unset($options['proxy_password']);
+        unset($options['local_cert']);
+        unset($options['passphrase']);
+        unset($options['authentication']);
+        unset($options['compression']);
+        unset($options['trace']);
+        unset($options['connection_timeout']);
+        unset($options['user_agent']);
+        unset($options['stream_context']);
+        unset($options['keep_alive']);
+        unset($options['ssl_method']);
+        parent::__construct($wsdl, $options);
+    }
+
     public function __doRequest($request, $location, $action, $version, $one_way = 0)
     {
         if (null !== $this->soapResponse) {
