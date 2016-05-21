@@ -13,7 +13,7 @@ composer require meng-tian/php-soap-interpreter
 ### Usage
 An `Interpreter` instance is capable of generating SOAP request messages and translating SOAP response messages. Constructor of `Interpreter` class is the same as `SoapClient`. The first parameter is `wsdl`, the second parameter is an array of `options`. 
 
-It should be noted that *not* all `options` supported by `SoapClient` are supported by `Interpreter`. The responsibility of `Interpreter` is to interpreting SOAP messages, whereas the unsupported options are related to debugging or HTTP transportation. The supported `options` by `Interpreter` are: `location`, `uri`, `style`, `soap_version`, `encoding`, `exceptions`, `classmap`, `typemap`, `cache_wsdl` and `feature`. More detailed explanations of those options can be found in [SoapClient::SoapClient](http://php.net/manual/en/soapclient.soapclient.php).
+It should be noted that *not* all `options` supported by `SoapClient` are supported by `Interpreter`. The responsibility of `Interpreter` is to interpreting SOAP messages, whereas the unsupported options are related to debugging or HTTP transportation. The supported `options` by `Interpreter` are: `location`, `uri`, `style`, `use`, `soap_version`, `encoding`, `exceptions`, `classmap`, `typemap`, `cache_wsdl` and `feature`. More detailed explanations of those options can be found in [SoapClient::SoapClient](http://php.net/manual/en/soapclient.soapclient.php).
 
 ### Examples
 ###### Generate SOAP request message in WSDL mode
