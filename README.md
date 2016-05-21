@@ -1,10 +1,6 @@
-# PHP SOAP Interpreter
+# PHP SOAP Interpreter [![Build Status](https://travis-ci.org/meng-tian/php-soap-interpreter.svg?branch=master)](https://travis-ci.org/meng-tian/php-soap-interpreter) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/meng-tian/php-soap-interpreter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/meng-tian/php-soap-interpreter/?branch=master) [![codecov.io](https://codecov.io/github/meng-tian/php-soap-interpreter/coverage.svg?branch=master)](https://codecov.io/github/meng-tian/php-soap-interpreter?branch=master)
 
-[![Build Status](https://travis-ci.org/meng-tian/php-soap-interpreter.svg?branch=master)](https://travis-ci.org/meng-tian/php-soap-interpreter)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/meng-tian/php-soap-interpreter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/meng-tian/php-soap-interpreter/?branch=master)
-[![codecov.io](https://codecov.io/github/meng-tian/php-soap-interpreter/coverage.svg?branch=master)](https://codecov.io/github/meng-tian/php-soap-interpreter?branch=master)
-
-A PHP library for interpreting `SOAP 1.1` and `SOAP 1.2` messages. It can be used in WSDL or non-WSDL mode. The implementation is built on the top of PHP's `SoapClient` class. If you are not familiar with `SoapClient`, it is recommended to read [SoapClient Manul](http://php.net/manual/en/class.soapclient.php) first.
+A PHP library for interpreting `SOAP 1.1` and `SOAP 1.2` messages. It can be used in WSDL or non-WSDL mode. The implementation is built on the top of PHP's [SoapClient](http://php.net/manual/en/class.soapclient.php).
 
 ### Requirement 
 PHP 5.4 --enablelibxml --enable-soap
@@ -15,8 +11,11 @@ composer require meng-tian/php-soap-interpreter
 ```
 
 ### Usage
-You need an `Interpreter` instance to generate SOAP request messages or translate SOAP response messages. The constructor of `Interpreter` is the same as `SoapClient`. The first parameter is `wsdl`, second parameter is an array of `options`. In `options`, you can specify the `soap_version`, `location`, `uri`, `encoding`, `classmap` and so on. More detailed explanations can be found in [SoapClient::SoapClient](http://php.net/manual/en/soapclient.soapclient.php).
+An `Interpreter` instance is capable of generating SOAP request messages and translating SOAP response messages. Constructor of `Interpreter` class is the same as `SoapClient`. The first parameter is `wsdl`, the second parameter is an array of `options`. 
 
+It should be noted that *not* all `options` supported by `SoapClient` are supported by `Interpreter`. The responsibility of `Interpreter` is to interpreting SOAP messages, whereas the unsupported options are related to debugging or HTTP transportation. The supported `options` by `Interpreter` are: `location`, `uri`, `style`, `soap_version`, `encoding`, `exceptions`, `classmap`, `typemap`, `cache_wsdl` and `feature`. More detailed explanations of those options can be found in [SoapClient::SoapClient](http://php.net/manual/en/soapclient.soapclient.php).
+
+### Examples
 ###### Generate SOAP request message in WSDL mode
 
 ```php
@@ -79,6 +78,9 @@ EOD;
 $response = $interpreter->response($response, 'ChangeLengthUnit');
 
 print_r($response);
+```
+Output:
+```php
 /*
 Output:
 stdClass Object
@@ -87,6 +89,9 @@ stdClass Object
 )
 */
 ```
+### Relevant
+- [SOAP HTTP Binding](https://github.com/meng-tian/soap-http-binding): binding SOAP messages to PSR-7 HTTP messages.
+- [PHP Asynchronous SOAP](https://github.com/meng-tian/php-async-soap): asynchronous SOAP clients.
 
 ### Credits
 Thanks the free SOAP web serivices hosted from http://www.webservicex.net. They are used for testing this library.
