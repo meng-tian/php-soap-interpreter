@@ -55,6 +55,13 @@ class Soap extends \SoapClient
 
     public function response($response, $function_name, &$output_headers)
     {
+        if (strpos($response, "Content-Type: application/xop+xml") !== false) {
+            //not using stristr function twice because not supported in php 5.2 as shown below
+            //$response = stristr(stristr($response, "<s:"), "</s:Envelope>", true) . "</s:Envelope>";
+            $tempstr = stristr($response, "<soap:");
+            $response = substr($tempstr, 0, strpos($tempstr, "</soap:Envelope>")) . "</soap:Envelope>";
+        }
+        
         $this->soapResponse = $response;
         try {
             $response = $this->__soapCall($function_name, [], null, null, $output_headers);
