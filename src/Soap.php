@@ -59,9 +59,23 @@ class Soap extends \SoapClient
         try {
             $response = $this->__soapCall($function_name, [], null, null, $output_headers);
         } catch (\SoapFault $fault) {
-            $this->soapResponse = null;
-            throw $fault;
+            if ($fault->getMessage() === 'looks like we got no XML document') {
+                preg_match("/(<[\w-_]+:Envelope.*<\/[\w-_]+:Envelope>)/", $response, $matches);
+                if (empty($matches[1])) {
+                    $this->soapResponse = null;
+
+                    throw $fault;
+                } else {
+                    $this->soapResponse = $matches[1];
+                    $response = $this->__soapCall($function_name, [], null, null, $output_headers);
+                }
+            } else {
+                $this->soapResponse = null;
+
+                throw $fault;
+            }
         }
+
         $this->soapResponse = null;
         return $response;
     }
