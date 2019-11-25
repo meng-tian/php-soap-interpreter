@@ -1,5 +1,5 @@
 {
-    "name": "meng-tian/php-soap-interpreter",
+    "name": "viktorprogger/php-soap-interpreter",
     "description": "A PHP library for interpreting SOAP messages.",
     "keywords": ["SOAP"],
     "license": "MIT",
