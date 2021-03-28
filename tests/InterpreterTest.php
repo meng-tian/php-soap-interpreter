@@ -10,7 +10,7 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
      */
     public function requestWsdlArrayArguments()
     {
-        $interpreter = new Interpreter('http://www.webservicex.net/CurrencyConvertor.asmx?WSDL');
+        $interpreter = new Interpreter(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'currency.wsdl');
         $request = $interpreter->request('ConversionRate', [['FromCurrency' => 'AFA', 'ToCurrency' => 'ALL']]);
         $this->assertEquals('http://www.webservicex.net/CurrencyConvertor.asmx', $request->getEndpoint());
         $this->assertEquals('http://www.webserviceX.NET/ConversionRate', $request->getSoapAction());
@@ -29,7 +29,7 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
      */
     public function requestWsdlObjectArguments()
     {
-        $interpreter = new Interpreter('http://www.webservicex.net/CurrencyConvertor.asmx?WSDL');
+        $interpreter = new Interpreter(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'currency.wsdl');
         $rate = new ConversionRate;
         $rate->FromCurrency = 'AFA';
         $rate->ToCurrency = 'ALL';
@@ -51,7 +51,7 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
      */
     public function requestWsdlInputHeaders()
     {
-        $interpreter = new Interpreter('http://www.webservicex.net/CurrencyConvertor.asmx?WSDL');
+        $interpreter = new Interpreter(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'currency.wsdl');
         $request = $interpreter->request(
             'ConversionRate',
             [['FromCurrency' => 'AFA', 'ToCurrency' => 'ALL']],
@@ -79,7 +79,7 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
     public function requestTypeMapToXML()
     {
         $interpreter = new Interpreter(
-            'http://www.webservicex.net/CurrencyConvertor.asmx?WSDL',
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'currency.wsdl',
             [
                 'typemap' => [
                     [
@@ -121,7 +121,7 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
   </soap:Body>
 </soap:Envelope>
 EOD;
-        $interpreter = new Interpreter('http://www.webservicex.net/CurrencyConvertor.asmx?WSDL');
+        $interpreter = new Interpreter(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'currency.wsdl');
         $responseMessage = $interpreter->response($responseMessage, 'ConversionRate');
         $this->assertInstanceOf('\StdClass', $responseMessage);
         $this->assertEquals(['ConversionRateResult' => '-1'], (array)$responseMessage);
@@ -147,7 +147,7 @@ EOD;
   </soap:Body>
 </soap:Envelope>
 EOD;
-        $interpreter = new Interpreter('http://www.webservicex.net/CurrencyConvertor.asmx?WSDL');
+        $interpreter = new Interpreter(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'currency.wsdl');
         $outputHeaders = [];
         $responseMessage = $interpreter->response($responseMessage, 'ConversionRate', $outputHeaders);
         $this->assertInstanceOf('\StdClass', $responseMessage);
@@ -170,7 +170,7 @@ EOD;
   </soap:Body>
 </soap:Envelope>
 EOD;
-        $interpreter = new Interpreter('http://www.webservicex.net/CurrencyConvertor.asmx?WSDL', ['classmap' => ['ConversionRateResponse' => '\ConversionRateResponse']]);
+        $interpreter = new Interpreter(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'currency.wsdl', ['classmap' => ['ConversionRateResponse' => '\ConversionRateResponse']]);
         $responseMessage = $interpreter->response($responseMessage, 'ConversionRate');
         $this->assertInstanceOf('\ConversionRateResponse', $responseMessage);
         $this->assertEquals(['ConversionRateResult' => '-1'], (array)$responseMessage);
@@ -192,7 +192,7 @@ EOD;
 </soap:Envelope>
 EOD;
         $interpreter = new Interpreter(
-            'http://www.webservicex.net/CurrencyConvertor.asmx?WSDL',
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'currency.wsdl',
             [
                 'typemap' => [
                     [
@@ -249,7 +249,7 @@ EOD;
      */
     public function requestWsdlSoapV12()
     {
-        $interpreter = new Interpreter('http://www.webservicex.net/airport.asmx?WSDL', ['soap_version' => SOAP_1_2]);
+        $interpreter = new Interpreter(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'airport.wsdl', ['soap_version' => SOAP_1_2]);
         $request = $interpreter->request('GetAirportInformationByCountry', [['country' => 'United Kingdom']]);
         $this->assertEquals('http://www.webservicex.net/airport.asmx', $request->getEndpoint());
         $this->assertEquals('http://www.webserviceX.NET/GetAirportInformationByCountry', $request->getSoapAction());
@@ -275,7 +275,7 @@ EOD;
     </soap:Body>
 </soap:Envelope>
 EOD;
-        $interpreter = new Interpreter('http://www.webservicex.net/airport.asmx?WSDL', ['soap_version' => SOAP_1_2]);
+        $interpreter = new Interpreter(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'wsdl' . DIRECTORY_SEPARATOR . 'airport.wsdl', ['soap_version' => SOAP_1_2]);
         $responseMessage = $interpreter->response($responseMessage, 'GetAirportInformationByCountry');
         $this->assertEquals(['GetAirportInformationByCountryResult' => '<NewDataSet />'], (array)$responseMessage);
     }

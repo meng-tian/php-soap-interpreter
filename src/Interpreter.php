@@ -10,7 +10,7 @@ class Interpreter
     /**
      * @param mixed  $wsdl              URI of the WSDL file or NULL if working in non-WSDL mode.
      * @param array  $options           Supported options: location, uri, style, use, soap_version, encoding,
-     *                                  exceptions, classmap, typemap, cache_wsdl and feature.
+     *                                  exceptions, classmap, typemap, cache_wsdl and features.
      */
     public function __construct($wsdl, array $options = [])
     {
