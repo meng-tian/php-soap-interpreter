@@ -3,7 +3,7 @@
 use Meng\Soap\Interpreter;
 use Meng\Soap\SoapRequest;
 
-class InterpreterTest extends PHPUnit_Framework_TestCase
+class InterpreterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test
@@ -16,12 +16,12 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.webserviceX.NET/ConversionRate', $request->getSoapAction());
         $this->assertEquals('1', $request->getSoapVersion());
         $this->assertNotEmpty($request->getSoapMessage());
-        $this->assertContains('http://schemas.xmlsoap.org/soap/envelope/', $request->getSoapMessage());
-        $this->assertContains('ConversionRate', $request->getSoapMessage());
-        $this->assertContains('FromCurrency', $request->getSoapMessage());
-        $this->assertContains('AFA', $request->getSoapMessage());
-        $this->assertContains('ToCurrency', $request->getSoapMessage());
-        $this->assertContains('ALL', $request->getSoapMessage());
+        $this->assertRegExp('/http:\/\/schemas\.xmlsoap\.org\/soap\/envelope\//', $request->getSoapMessage());
+        $this->assertRegExp('/ConversionRate/', $request->getSoapMessage());
+        $this->assertRegExp('/FromCurrency/', $request->getSoapMessage());
+        $this->assertRegExp('/AFA/', $request->getSoapMessage());
+        $this->assertRegExp('/ToCurrency/', $request->getSoapMessage());
+        $this->assertRegExp('/ALL/', $request->getSoapMessage());
     }
 
     /**
@@ -38,12 +38,12 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.webserviceX.NET/ConversionRate', $request->getSoapAction());
         $this->assertEquals('1', $request->getSoapVersion());
         $this->assertNotEmpty($request->getSoapMessage());
-        $this->assertContains('http://schemas.xmlsoap.org/soap/envelope/', $request->getSoapMessage());
-        $this->assertContains('ConversionRate', $request->getSoapMessage());
-        $this->assertContains('FromCurrency', $request->getSoapMessage());
-        $this->assertContains('AFA', $request->getSoapMessage());
-        $this->assertContains('ToCurrency', $request->getSoapMessage());
-        $this->assertContains('ALL', $request->getSoapMessage());
+        $this->assertRegExp('/http:\/\/schemas\.xmlsoap\.org\/soap\/envelope\//', $request->getSoapMessage());
+        $this->assertRegExp('/ConversionRate/', $request->getSoapMessage());
+        $this->assertRegExp('/FromCurrency/', $request->getSoapMessage());
+        $this->assertRegExp('/AFA/', $request->getSoapMessage());
+        $this->assertRegExp('/ToCurrency/', $request->getSoapMessage());
+        $this->assertRegExp('/ALL/', $request->getSoapMessage());
     }
 
     /**
@@ -62,15 +62,15 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.webserviceX.NET/ConversionRate', $request->getSoapAction());
         $this->assertEquals('1', $request->getSoapVersion());
         $this->assertNotEmpty($request->getSoapMessage());
-        $this->assertContains('http://schemas.xmlsoap.org/soap/envelope/', $request->getSoapMessage());
-        $this->assertContains('www.namespace.com', $request->getSoapMessage());
-        $this->assertContains('test_header', $request->getSoapMessage());
-        $this->assertContains('header_data', $request->getSoapMessage());
-        $this->assertContains('ConversionRate', $request->getSoapMessage());
-        $this->assertContains('FromCurrency', $request->getSoapMessage());
-        $this->assertContains('AFA', $request->getSoapMessage());
-        $this->assertContains('ToCurrency', $request->getSoapMessage());
-        $this->assertContains('ALL', $request->getSoapMessage());
+        $this->assertRegExp('/http:\/\/schemas\.xmlsoap\.org\/soap\/envelope\//', $request->getSoapMessage());
+        $this->assertRegExp('/www\.namespace\.com/', $request->getSoapMessage());
+        $this->assertRegExp('/test_header/', $request->getSoapMessage());
+        $this->assertRegExp('/header_data/', $request->getSoapMessage());
+        $this->assertRegExp('/ConversionRate/', $request->getSoapMessage());
+        $this->assertRegExp('/FromCurrency/', $request->getSoapMessage());
+        $this->assertRegExp('/AFA/', $request->getSoapMessage());
+        $this->assertRegExp('/ToCurrency/', $request->getSoapMessage());
+        $this->assertRegExp('/ALL/', $request->getSoapMessage());
     }
 
     /**
@@ -98,12 +98,12 @@ class InterpreterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.webserviceX.NET/ConversionRate', $request->getSoapAction());
         $this->assertEquals('1', $request->getSoapVersion());
         $this->assertNotEmpty($request->getSoapMessage());
-        $this->assertContains('http://schemas.xmlsoap.org/soap/envelope/', $request->getSoapMessage());
-        $this->assertContains('ConversionRate', $request->getSoapMessage());
-        $this->assertContains('FromCurrency', $request->getSoapMessage());
-        $this->assertContains('OLD', $request->getSoapMessage());
-        $this->assertContains('ToCurrency', $request->getSoapMessage());
-        $this->assertContains('NEW', $request->getSoapMessage());
+        $this->assertRegExp('/http:\/\/schemas\.xmlsoap\.org\/soap\/envelope\//', $request->getSoapMessage());
+        $this->assertRegExp('/ConversionRate/', $request->getSoapMessage());
+        $this->assertRegExp('/FromCurrency/', $request->getSoapMessage());
+        $this->assertRegExp('/OLD/', $request->getSoapMessage());
+        $this->assertRegExp('/ToCurrency/', $request->getSoapMessage());
+        $this->assertRegExp('/NEW/', $request->getSoapMessage());
     }
 
     /**
@@ -255,9 +255,9 @@ EOD;
         $this->assertEquals('http://www.webserviceX.NET/GetAirportInformationByCountry', $request->getSoapAction());
         $this->assertEquals('2', $request->getSoapVersion());
         $this->assertNotEmpty($request->getSoapMessage());
-        $this->assertContains('http://www.w3.org/2003/05/soap-envelope', $request->getSoapMessage());
-        $this->assertContains('GetAirportInformationByCountry', $request->getSoapMessage());
-        $this->assertContains('country', $request->getSoapMessage());
+        $this->assertRegExp('/http:\/\/www\.w3\.org\/2003\/05\/soap-envelope/', $request->getSoapMessage());
+        $this->assertRegExp('/GetAirportInformationByCountry/', $request->getSoapMessage());
+        $this->assertRegExp('/country/', $request->getSoapMessage());
     }
 
     /**
@@ -290,10 +290,10 @@ EOD;
         $this->assertEquals('www.location.com', $request->getEndpoint());
         $this->assertEquals('www.uri.com#anything', $request->getSoapAction());
         $this->assertEquals('1', $request->getSoapVersion());
-        $this->assertContains('one', $request->getSoapMessage());
-        $this->assertContains('two', $request->getSoapMessage());
-        $this->assertContains('three', $request->getSoapMessage());
-        $this->assertContains('four', $request->getSoapMessage());
+        $this->assertRegExp('/one/', $request->getSoapMessage());
+        $this->assertRegExp('/two/', $request->getSoapMessage());
+        $this->assertRegExp('/three/', $request->getSoapMessage());
+        $this->assertRegExp('/four/', $request->getSoapMessage());
     }
 
     /**
