@@ -34,7 +34,7 @@ class Soap extends \SoapClient
         parent::__construct($wsdl, $options);
     }
 
-    public function __doRequest($request, $location, $action, $version, $one_way = 0)
+    public function __doRequest($request, $location, $action, $version, $one_way = 0): ?string
     {
         if (null !== $this->soapResponse) {
             return $this->soapResponse;
@@ -47,7 +47,7 @@ class Soap extends \SoapClient
         return '';
     }
 
-    public function request($function_name, $arguments, $options, $input_headers)
+    public function request($function_name, $arguments, $options, $input_headers): SoapRequest
     {
         $this->__soapCall($function_name, $arguments, $options, $input_headers);
         return new SoapRequest($this->endpoint, $this->soapAction, $this->soapVersion, $this->soapRequest);
