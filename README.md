@@ -3,7 +3,7 @@
 A PHP library for interpreting `SOAP 1.1` and `SOAP 1.2` messages. It can be used in WSDL or non-WSDL mode. The implementation is built on the top of PHP's [SoapClient](http://php.net/manual/en/class.soapclient.php).
 
 ### Prerequisite
-PHP 5.4 --enablelibxml --enable-soap
+PHP 7.1 --enablelibxml --enable-soap
 
 ### Install
 ```
