@@ -1,4 +1,5 @@
-# PHP SOAP Interpreter [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/meng-tian/php-soap-interpreter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/meng-tian/php-soap-interpreter/?branch=master) [![codecov.io](https://codecov.io/github/meng-tian/php-soap-interpreter/coverage.svg?branch=master)](https://codecov.io/github/meng-tian/php-soap-interpreter?branch=master)
+# PHP SOAP Interpreter [![codecov.io](https://codecov.io/github/meng-tian/php-soap-interpreter/coverage.svg?branch=master)](https://codecov.io/github/meng-tian/php-soap-interpreter?branch=master) ![workflow](https://github.com/meng-tian/php-soap-interpreter/actions/workflows/main.yaml/badge.svg)
+
 
 A PHP library for interpreting `SOAP 1.1` and `SOAP 1.2` messages. It can be used in WSDL or non-WSDL mode. The implementation is built on the top of PHP's [SoapClient](http://php.net/manual/en/class.soapclient.php).
 
